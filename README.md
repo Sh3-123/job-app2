@@ -1,4 +1,4 @@
-# KodNest Premium Build System
+# Placement Platform
 
 A calm, intentional, and coherent design system for serious B2C product companies.
 
