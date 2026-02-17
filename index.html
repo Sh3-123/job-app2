@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KodNest Premium Build System - Demo</title>
+  <meta name="description" content="A calm, intentional, and coherent design system for serious B2C product companies">
+  <link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="kn-topbar">
+    <div class="kn-topbar__project">Job Notification Tracker</div>
+    <div class="kn-topbar__progress">Step 3 / 8</div>
+    <div class="kn-topbar__status kn-topbar__status--in-progress">In Progress</div>
+  </header>
+
+  <!-- CONTEXT HEADER -->
+  <section class="kn-context-header">
+    <h1 class="kn-context-header__title">Configure Email Preferences</h1>
+    <p class="kn-context-header__subtitle">Define how you want to receive job notifications and set your delivery schedule.</p>
+  </section>
+
+  <!-- PRIMARY WORKSPACE + SECONDARY PANEL -->
+  <div class="kn-container">
+    
+    <!-- PRIMARY WORKSPACE (70%) -->
+    <main class="kn-workspace">
+      
+      <div class="kn-card">
+        <h2 class="kn-card__title">Notification Settings</h2>
+        <div class="kn-card__content">
+          
+          <div class="kn-form-group">
+            <label class="kn-form-label" for="email">Email Address</label>
+            <input type="email" id="email" class="kn-input" placeholder="your@email.com" value="shawn@example.com">
+          </div>
+
+          <div class="kn-form-group">
+            <label class="kn-form-label" for="frequency">Delivery Frequency</label>
+            <input type="text" id="frequency" class="kn-input" placeholder="Daily, Weekly, etc." value="Daily at 9:00 AM">
+          </div>
+
+          <div class="kn-form-group">
+            <label class="kn-form-label" for="preferences">Job Role Preferences</label>
+            <textarea id="preferences" class="kn-textarea" placeholder="Describe the types of roles you're interested in...">Frontend Developer, UI/UX Designer, Product Manager</textarea>
+          </div>
+
+          <div class="kn-btn-group">
+            <button class="kn-btn kn-btn--primary">Save Preferences</button>
+            <button class="kn-btn kn-btn--secondary">Reset to Default</button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="kn-card">
+        <h2 class="kn-card__title">Preview Digest</h2>
+        <div class="kn-card__content">
+          <p class="text-muted">Your daily digest will include jobs matching your preferences. You'll receive a clean, formatted email with relevant opportunities.</p>
+          <button class="kn-btn kn-btn--secondary kn-mt-md">Generate Sample Digest</button>
+        </div>
+      </div>
+
+    </main>
+    
+    <!-- SECONDARY PANEL (30%) -->
+    <aside class="kn-panel">
+      
+      <div class="kn-panel-section">
+        <h3 class="kn-panel-section__title">Step Explanation</h3>
+        <p class="kn-panel-section__content">
+          Set up your email preferences to control when and how you receive job notifications. This ensures you only see relevant opportunities.
+        </p>
+      </div>
+
+      <div class="kn-panel-section">
+        <h3 class="kn-panel-section__title">Prompt</h3>
+        <div class="kn-prompt-box">Create an email preferences form with fields for email address, delivery frequency, and job role preferences. Include save and reset buttons.</div>
+        <div class="kn-btn-group">
+          <button class="kn-btn kn-btn--secondary kn-btn--full">Copy</button>
+        </div>
+      </div>
+
+      <div class="kn-panel-section">
+        <h3 class="kn-panel-section__title">Actions</h3>
+        <div class="kn-btn-group">
+          <button class="kn-btn kn-btn--secondary kn-btn--full">Build in Lovable</button>
+        </div>
+        <div class="kn-btn-group">
+          <button class="kn-btn kn-btn--success kn-btn--full">It Worked</button>
+        </div>
+        <div class="kn-btn-group">
+          <button class="kn-btn kn-btn--secondary kn-btn--full">Error</button>
+          <button class="kn-btn kn-btn--secondary kn-btn--full">Add Screenshot</button>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- PROOF FOOTER -->
+  <footer class="kn-proof-footer">
+    <h3 class="kn-proof-footer__title">Completion Proof</h3>
+    <div class="kn-proof-checklist">
+      <label class="kn-proof-item">
+        <input type="checkbox" checked>
+        <span>UI Built</span>
+      </label>
+      <label class="kn-proof-item">
+        <input type="checkbox" checked>
+        <span>Logic Working</span>
+      </label>
+      <label class="kn-proof-item">
+        <input type="checkbox">
+        <span>Test Passed</span>
+      </label>
+      <label class="kn-proof-item">
+        <input type="checkbox">
+        <span>Deployed</span>
+      </label>
+    </div>
+  </footer>
+
+</body>
+</html>

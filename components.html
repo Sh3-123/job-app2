@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KodNest Component Library</title>
+    <meta name="description" content="Component showcase for the KodNest Premium Build System">
+    <link rel="stylesheet" href="design-system.css">
+    <style>
+        .component-showcase {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        .component-section {
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-xl);
+            border-bottom: var(--border-width) solid var(--color-border);
+        }
+
+        .component-section:last-child {
+            border-bottom: none;
+        }
+
+        .component-grid {
+            display: grid;
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .component-example {
+            background: var(--color-surface);
+            padding: var(--space-md);
+            border: var(--border-width) solid var(--color-border);
+            border-radius: var(--border-radius);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="component-showcase">
+
+        <!-- TYPOGRAPHY -->
+        <section class="component-section">
+            <h2>Typography</h2>
+            <p class="text-muted">Headings use Playfair Display (serif), body text uses Inter (sans-serif)</p>
+
+            <div class="component-grid">
+                <div class="component-example">
+                    <h1>Heading Level 1</h1>
+                    <h2>Heading Level 2</h2>
+                    <h3>Heading Level 3</h3>
+                    <p>This is body text at 18px with 1.8 line-height. Maximum width is constrained to 720px for optimal
+                        readability. This ensures comfortable reading without excessive eye movement.</p>
+                    <p class="text-muted">This is muted text used for secondary information and descriptions.</p>
+                    <p class="text-small">This is small text at 14px for labels and metadata.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUTTONS -->
+        <section class="component-section">
+            <h2>Buttons</h2>
+            <p class="text-muted">Consistent hover effects, 150ms transitions, no decorative animations</p>
+
+            <div class="component-grid">
+                <div class="component-example">
+                    <h3>Primary Button</h3>
+                    <button class="kn-btn kn-btn--primary">Save Changes</button>
+                    <button class="kn-btn kn-btn--primary" disabled>Disabled State</button>
+                </div>
+
+                <div class="component-example">
+                    <h3>Secondary Button</h3>
+                    <button class="kn-btn kn-btn--secondary">Cancel</button>
+                    <button class="kn-btn kn-btn--secondary" disabled>Disabled State</button>
+                </div>
+
+                <div class="component-example">
+                    <h3>Success Button</h3>
+                    <button class="kn-btn kn-btn--success">Mark Complete</button>
+                    <button class="kn-btn kn-btn--success" disabled>Disabled State</button>
+                </div>
+
+                <div class="component-example">
+                    <h3>Button Group</h3>
+                    <div class="kn-btn-group">
+                        <button class="kn-btn kn-btn--primary">Confirm</button>
+                        <button class="kn-btn kn-btn--secondary">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="component-example">
+                    <h3>Full Width Button</h3>
+                    <button class="kn-btn kn-btn--primary kn-btn--full">Full Width Action</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORM INPUTS -->
+        <section class="component-section">
+            <h2>Form Inputs</h2>
+            <p class="text-muted">Clean borders, clear focus states, no heavy shadows</p>
+
+            <div class="component-grid">
+                <div class="component-example">
+                    <div class="kn-form-group">
+                        <label class="kn-form-label" for="example-input">Text Input</label>
+                        <input type="text" id="example-input" class="kn-input" placeholder="Enter text here...">
+                    </div>
+
+                    <div class="kn-form-group">
+                        <label class="kn-form-label" for="example-email">Email Input</label>
+                        <input type="email" id="example-email" class="kn-input" placeholder="your@email.com">
+                    </div>
+
+                    <div class="kn-form-group">
+                        <label class="kn-form-label" for="example-textarea">Textarea</label>
+                        <textarea id="example-textarea" class="kn-textarea"
+                            placeholder="Enter longer text here..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARDS -->
+        <section class="component-section">
+            <h2>Cards</h2>
+            <p class="text-muted">Subtle borders, no drop shadows, balanced padding</p>
+
+            <div class="component-grid">
+                <div class="component-example">
+                    <div class="kn-card">
+                        <h2 class="kn-card__title">Card Title</h2>
+                        <div class="kn-card__content">
+                            <p>This is a standard card component with a title and content area. Cards maintain
+                                consistent spacing and use subtle borders instead of shadows.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BADGES -->
+        <section class="component-section">
+            <h2>Badges</h2>
+            <p class="text-muted">Status indicators with uppercase text and generous letter spacing</p>
+
+            <div class="component-grid">
+                <div class="component-example">
+                    <span class="kn-badge kn-badge--success">Success</span>
+                    <span class="kn-badge kn-badge--warning">Warning</span>
+                    <span class="kn-badge kn-badge--default">Default</span>
+                </div>
+
+                <div class="component-example">
+                    <h3>Status Badges in Top Bar</h3>
+                    <div class="kn-topbar__status kn-topbar__status--not-started">Not Started</div>
+                    <div class="kn-topbar__status kn-topbar__status--in-progress">In Progress</div>
+                    <div class="kn-topbar__status kn-topbar__status--shipped">Shipped</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANEL COMPONENTS -->
+        <section class="component-section">
+            <h2>Panel Components</h2>
+            <p class="text-muted">Secondary panel sections with calm styling</p>
+
+            <div class="component-grid">
+                <div class="component-example">
+                    <div class="kn-panel-section">
+                        <h3 class="kn-panel-section__title">Step Explanation</h3>
+                        <p class="kn-panel-section__content">
+                            This is where you provide short, clear explanations about the current step. Keep it concise
+                            and actionable.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="component-example">
+                    <div class="kn-panel-section">
+                        <h3 class="kn-panel-section__title">Prompt Box</h3>
+                        <div class="kn-prompt-box">This is a copyable prompt box with monospace font. It's designed for
+                            code snippets or instructions that users will copy.</div>
+                        <div class="kn-btn-group">
+                            <button class="kn-btn kn-btn--secondary kn-btn--full">Copy to Clipboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ERROR & EMPTY STATES -->
+        <section class="component-section">
+            <h2>Error & Empty States</h2>
+            <p class="text-muted">Clear, helpful messaging that never blames the user</p>
+
+            <div class="component-grid">
+                <div class="component-example">
+                    <div class="kn-error">
+                        <div class="kn-error__title">Connection Failed</div>
+                        <div class="kn-error__message">We couldn't connect to the server to save your preferences.</div>
+                        <div class="kn-error__solution">Please check your internet connection and try again. If the
+                            problem persists, contact support.</div>
+                    </div>
+                </div>
+
+                <div class="component-example">
+                    <div class="kn-empty">
+                        <h2 class="kn-empty__title">No Jobs Found</h2>
+                        <p class="kn-empty__message">We couldn't find any jobs matching your current preferences. Try
+                            adjusting your filters or check back tomorrow.</p>
+                        <button class="kn-btn kn-btn--primary">Adjust Preferences</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COLOR SYSTEM -->
+        <section class="component-section">
+            <h2>Color System</h2>
+            <p class="text-muted">Maximum 4 colors: Background, Text, Accent, Success/Warning</p>
+
+            <div class="component-grid">
+                <div class="component-example">
+                    <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+                        <div style="padding: var(--space-md); background: #F7F6F3; border: 1px solid #D4D2CC;">
+                            <div style="font-weight: 600;">Background</div>
+                            <div style="font-size: 14px; color: var(--color-muted);">#F7F6F3</div>
+                        </div>
+                        <div style="padding: var(--space-md); background: #111111; color: white;">
+                            <div style="font-weight: 600;">Text</div>
+                            <div style="font-size: 14px; opacity: 0.7;">#111111</div>
+                        </div>
+                        <div style="padding: var(--space-md); background: #8B0000; color: white;">
+                            <div style="font-weight: 600;">Accent</div>
+                            <div style="font-size: 14px; opacity: 0.7;">#8B0000</div>
+                        </div>
+                        <div style="padding: var(--space-md); background: #3D5A3E; color: white;">
+                            <div style="font-weight: 600;">Success</div>
+                            <div style="font-size: 14px; opacity: 0.7;">#3D5A3E</div>
+                        </div>
+                        <div style="padding: var(--space-md); background: #8B6914; color: white;">
+                            <div style="font-weight: 600;">Warning</div>
+                            <div style="font-size: 14px; opacity: 0.7;">#8B6914</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPACING SYSTEM -->
+        <section class="component-section">
+            <h2>Spacing System</h2>
+            <p class="text-muted">Consistent scale: 8px, 16px, 24px, 40px, 64px - No random values</p>
+
+            <div class="component-grid">
+                <div class="component-example">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 8px; height: 40px; background: #8B0000;"></div>
+                            <span>8px (--space-xs)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 16px; height: 40px; background: #8B0000;"></div>
+                            <span>16px (--space-sm)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 24px; height: 40px; background: #8B0000;"></div>
+                            <span>24px (--space-md)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 40px; height: 40px; background: #8B0000;"></div>
+                            <span>40px (--space-lg)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 64px; height: 40px; background: #8B0000;"></div>
+                            <span>64px (--space-xl)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+
+</html>
