@@ -5,6 +5,8 @@ import { extractSkills } from '../utils/skillExtractor'
 import { generateChecklist, generate7DayPlan, generateQuestions } from '../utils/analysisGenerator'
 import { calculateReadinessScore } from '../utils/scoreCalculator'
 import { saveAnalysisEntry } from '../utils/storage'
+import { generateCompanyIntel } from '../utils/companyIntel'
+
 
 export default function Practice() {
     const navigate = useNavigate()
@@ -48,6 +50,13 @@ export default function Practice() {
                 jdText: formData.jdText
             })
 
+            // Generate company intelligence
+            const companyIntel = generateCompanyIntel(
+                formData.company || 'Unknown Company',
+                extractedSkills,
+                formData.jdText
+            )
+
             // Save to localStorage
             const savedEntry = saveAnalysisEntry({
                 company: formData.company || 'Unknown Company',
@@ -57,7 +66,8 @@ export default function Practice() {
                 checklist,
                 plan,
                 questions,
-                readinessScore
+                readinessScore,
+                companyIntel  // Include company intel in saved entry
             })
 
             setAnalyzing(false)
@@ -65,6 +75,7 @@ export default function Practice() {
             // Navigate to results page with the ID
             navigate(`/app/results?id=${savedEntry.id}`)
         }, 1500)
+
     }
 
     return (

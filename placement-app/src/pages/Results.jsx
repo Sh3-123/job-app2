@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import { CheckCircle, Calendar, Lightbulb, Target, TrendingUp, ArrowLeft, Download, Copy, Check, AlertCircle } from 'lucide-react'
+import { CheckCircle, Calendar, Lightbulb, Target, TrendingUp, ArrowLeft, Download, Copy, Check, AlertCircle, Building2, MapPin } from 'lucide-react'
 import { getAnalysisById, getLatestAnalysis, saveAnalysisEntry } from '../utils/storage'
 import { getReadinessLevel } from '../utils/scoreCalculator'
 
@@ -234,7 +234,113 @@ export default function Results() {
                 </div>
             </div>
 
+            {/* Company Intelligence Block */}
+            {analysis.companyIntel && (
+                <div className="bg-white rounded-lg shadow p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                        <Building2 className="w-5 h-5 text-primary" />
+                        <h3 className="text-xl font-semibold text-gray-900">Company Intel</h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+                            <p className="text-sm text-gray-600 mb-1">Company</p>
+                            <p className="font-semibold text-gray-900">{analysis.companyIntel.companyName}</p>
+                        </div>
+                        <div className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg border border-purple-200">
+                            <p className="text-sm text-gray-600 mb-1">Industry</p>
+                            <p className="font-semibold text-gray-900">{analysis.companyIntel.industry}</p>
+                        </div>
+                        <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200">
+                            <p className="text-sm text-gray-600 mb-1">Estimated Size</p>
+                            <p className="font-semibold text-gray-900">{analysis.companyIntel.sizeLabel}</p>
+                        </div>
+                    </div>
+
+                    <div className="p-5 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg border border-amber-200">
+                        <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-amber-700" />
+                            Typical Hiring Focus
+                        </h4>
+                        <p className="text-gray-800 font-medium mb-3">{analysis.companyIntel.hiringFocus.title}</p>
+                        <ul className="space-y-2">
+                            {analysis.companyIntel.hiringFocus.points.map((point, idx) => (
+                                <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
+                                    <span className="text-amber-600 font-bold mt-0.5">•</span>
+                                    <span>{point}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <p className="text-xs text-gray-600">
+                            <strong>Demo Mode:</strong> Company intel generated heuristically based on industry patterns and detected skills.
+                            No external data scraping used.
+                        </p>
+                    </div>
+                </div>
+            )}
+
+            {/* Round Mapping Engine */}
+            {analysis.companyIntel && analysis.companyIntel.rounds && (
+                <div className="bg-white rounded-lg shadow p-6">
+                    <div className="flex items-center gap-2 mb-6">
+                        <CheckCircle className="w-5 h-5 text-primary" />
+                        <h3 className="text-xl font-semibold text-gray-900">Interview Round Flow</h3>
+                        <span className="ml-auto text-xs bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">
+                            {analysis.companyIntel.rounds.length} Rounds
+                        </span>
+                    </div>
+
+                    {/* Vertical Timeline */}
+                    <div className="relative space-y-6">
+                        {/* Timeline line */}
+                        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-purple-400 to-pink-400"></div>
+
+                        {analysis.companyIntel.rounds.map((round, idx) => (
+                            <div key={idx} className="relative pl-12">
+                                {/* Timeline dot */}
+                                <div className="absolute left-0 top-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
+                                    {idx + 1}
+                                </div>
+
+                                {/* Round card */}
+                                <div className="bg-gradient-to-br from-gray-50 to-white rounded-lg border-2 border-gray-200 p-5 hover:border-primary/50 transition-all hover:shadow-md">
+                                    <h4 className="font-bold text-gray-900 mb-2 text-lg">{round.title}</h4>
+
+                                    <div className="mb-3">
+                                        <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold">
+                                            {round.duration}
+                                        </span>
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <p className="text-sm text-gray-600 font-medium mb-1">Focus Areas:</p>
+                                        <p className="text-gray-900">{round.focus}</p>
+                                    </div>
+
+                                    <div className="p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
+                                        <p className="text-xs font-semibold text-primary mb-1">💡 Why this round matters:</p>
+                                        <p className="text-sm text-gray-700">{round.why}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border-2 border-green-200">
+                        <p className="text-sm text-gray-800">
+                            <strong className="text-green-900">Pro Tip:</strong> This round mapping is dynamically generated based on {analysis.companyIntel.companyName}'s
+                            estimated size ({analysis.companyIntel.companySize}) and the skills detected in the JD.
+                            Use it as a preparation guide, but always verify with official company resources.
+                        </p>
+                    </div>
+                </div>
+            )}
+
             {/* Extracted Skills - Now Interactive */}
+
             <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
