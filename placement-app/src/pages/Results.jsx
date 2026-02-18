@@ -25,28 +25,15 @@ export default function Results() {
 
         if (data) {
             setAnalysis(data)
-            // Load existing skill confidence or initialize to "practice"
+            // Load existing skill confidence or initialize to empty
             const confidence = data.skillConfidenceMap || {}
             setSkillConfidence(confidence)
-            // Calculate initial live score
-            calculateLiveScore(data.readinessScore, confidence)
+            // Set live score from finalScore (or fallback to baseScore or readinessScore for old entries)
+            const initialScore = data.finalScore !== undefined ? data.finalScore : (data.baseScore || data.readinessScore || 0)
+            setLiveScore(initialScore)
         }
         setLoading(false)
     }, [searchParams])
-
-    const calculateLiveScore = (baseScore, confidenceMap) => {
-        let score = baseScore
-        Object.values(confidenceMap).forEach(status => {
-            if (status === 'know') {
-                score += 1  // Changed from +2 to +1 for more balanced scoring
-            } else if (status === 'practice') {
-                score -= 1  // Changed from -2 to -1 for more balanced scoring
-            }
-        })
-        // Clamp between 0 and 100
-        score = Math.max(0, Math.min(100, score))
-        setLiveScore(score)
-    }
 
     const toggleSkillConfidence = (skill) => {
         const newConfidence = { ...skillConfidence }
@@ -55,12 +42,18 @@ export default function Results() {
         newConfidence[skill] = current === 'practice' ? 'know' : 'practice'
 
         setSkillConfidence(newConfidence)
-        calculateLiveScore(analysis.readinessScore, newConfidence)
 
-        // Save to localStorage
+        // Calculate new final score based on base score and confidence map
+        const baseScore = analysis.baseScore !== undefined ? analysis.baseScore : (analysis.readinessScore || 0)
+        const newFinalScore = calculateFinalScore(baseScore, newConfidence)
+        setLiveScore(newFinalScore)
+
+        // Save to localStorage with updated finalScore and updatedAt
         const updatedAnalysis = {
             ...analysis,
-            skillConfidenceMap: newConfidence
+            skillConfidenceMap: newConfidence,
+            finalScore: newFinalScore,
+            updatedAt: new Date().toISOString()
         }
 
         // Update in localStorage by modifying the entry
@@ -71,6 +64,19 @@ export default function Results() {
             localStorage.setItem('placement_analysis_history', JSON.stringify(allHistory))
             setAnalysis(updatedAnalysis)
         }
+    }
+
+    const calculateFinalScore = (baseScore, confidenceMap) => {
+        let score = baseScore
+        Object.values(confidenceMap).forEach(status => {
+            if (status === 'know') {
+                score += 1
+            } else if (status === 'practice') {
+                score -= 1
+            }
+        })
+        // Clamp between 0 and 100
+        return Math.max(0, Math.min(100, score))
     }
 
     const copyToClipboard = async (text, type) => {
@@ -223,7 +229,7 @@ export default function Results() {
                     <div>
                         <h3 className="text-lg font-semibold text-gray-900 mb-1">Live Readiness Score</h3>
                         <p className="text-gray-600 text-sm">Updates as you assess your skills below</p>
-                        <p className="text-xs text-gray-500 mt-1">Base: {analysis.readinessScore} | Adjusted: {liveScore}</p>
+                        <p className="text-xs text-gray-500 mt-1">Base: {analysis.baseScore !== undefined ? analysis.baseScore : (analysis.readinessScore || 0)} | Current: {liveScore}</p>
                     </div>
                     <div className="text-right">
                         <div className="text-5xl font-bold text-primary">{liveScore}</div>

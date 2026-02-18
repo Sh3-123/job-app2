@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FileText, Sparkles } from 'lucide-react'
+import { FileText, Sparkles, AlertTriangle } from 'lucide-react'
 import { extractSkills } from '../utils/skillExtractor'
 import { generateChecklist, generate7DayPlan, generateQuestions } from '../utils/analysisGenerator'
 import { calculateReadinessScore } from '../utils/scoreCalculator'
@@ -35,15 +35,25 @@ export default function Practice() {
         // Simulate processing time for better UX
         setTimeout(() => {
             // Extract skills
-            const extractedSkills = extractSkills(formData.jdText)
+            let extractedSkills = extractSkills(formData.jdText)
+
+            // Default behavior if no skills detected
+            if (Object.keys(extractedSkills).length === 0) {
+                extractedSkills = {
+                    other: {
+                        name: 'General Skills',
+                        skills: ['Communication', 'Problem solving', 'Basic coding', 'Projects']
+                    }
+                }
+            }
 
             // Generate analysis outputs
             const checklist = generateChecklist(extractedSkills)
             const plan = generate7DayPlan(extractedSkills)
             const questions = generateQuestions(extractedSkills)
 
-            // Calculate readiness score
-            const readinessScore = calculateReadinessScore({
+            // Calculate base readiness score (only on analyze)
+            const baseScore = calculateReadinessScore({
                 extractedSkills,
                 company: formData.company,
                 role: formData.role,
@@ -57,17 +67,21 @@ export default function Practice() {
                 formData.jdText
             )
 
-            // Save to localStorage
+            // Build standardized analysis entry
+            const now = new Date().toISOString()
             const savedEntry = saveAnalysisEntry({
-                company: formData.company || 'Unknown Company',
-                role: formData.role || 'Unknown Role',
+                company: formData.company.trim() || '',
+                role: formData.role.trim() || '',
                 jdText: formData.jdText,
                 extractedSkills,
                 checklist,
                 plan,
                 questions,
-                readinessScore,
-                companyIntel  // Include company intel in saved entry
+                baseScore,              // Base score computed only on analyze
+                finalScore: baseScore,  // Initial final score equals base score
+                skillConfidenceMap: {}, // Empty initially
+                companyIntel,
+                updatedAt: now
             })
 
             setAnalyzing(false)
@@ -75,8 +89,8 @@ export default function Practice() {
             // Navigate to results page with the ID
             navigate(`/app/results?id=${savedEntry.id}`)
         }, 1500)
-
     }
+
 
     return (
         <div>
@@ -136,6 +150,14 @@ export default function Practice() {
                         <p className="text-xs text-gray-500 mt-1">
                             {formData.jdText.length} characters
                         </p>
+                        {formData.jdText.trim().length > 0 && formData.jdText.trim().length < 200 && (
+                            <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2">
+                                <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                                <p className="text-sm text-amber-800">
+                                    <strong>Tip:</strong> This JD is too short to analyze deeply. Paste the full job description for better output.
+                                </p>
+                            </div>
+                        )}
                     </div>
 
                     <button

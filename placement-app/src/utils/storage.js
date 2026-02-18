@@ -3,12 +3,42 @@
 const STORAGE_KEY = 'placement_analysis_history'
 
 /**
+ * Validate analysis entry has required fields
+ */
+function isValidEntry(entry) {
+    return entry &&
+        typeof entry.id === 'string' &&
+        typeof entry.createdAt === 'string' &&
+        typeof entry.jdText === 'string' &&
+        typeof entry.extractedSkills === 'object'
+}
+
+/**
  * Get all analysis entries from localStorage
+ * Filters out corrupted entries gracefully
  */
 export function getAnalysisHistory() {
     try {
         const stored = localStorage.getItem(STORAGE_KEY)
-        return stored ? JSON.parse(stored) : []
+        if (!stored) return []
+
+        const allEntries = JSON.parse(stored)
+
+        // Filter valid entries and log corrupted ones
+        const validEntries = allEntries.filter(entry => {
+            const isValid = isValidEntry(entry)
+            if (!isValid) {
+                console.warn('Skipping corrupted entry:', entry?.id || 'unknown')
+            }
+            return isValid
+        })
+
+        // If we filtered out corrupted entries, save the clean list
+        if (validEntries.length !== allEntries.length) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(validEntries))
+        }
+
+        return validEntries
     } catch (error) {
         console.error('Error reading from localStorage:', error)
         return []
