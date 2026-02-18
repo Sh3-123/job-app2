@@ -7,6 +7,9 @@ import Assessments from './pages/Assessments'
 import Resources from './pages/Resources'
 import Profile from './pages/Profile'
 import Results from './pages/Results'
+import TestChecklist from './pages/TestChecklist'
+import ShipPage from './pages/ShipPage'
+
 
 function App() {
     return (
@@ -19,6 +22,12 @@ function App() {
                 <Route path="results" element={<Results />} />
                 <Route path="resources" element={<Resources />} />
                 <Route path="profile" element={<Profile />} />
+            </Route>
+
+            {/* PRP Checklist & Test Routes - Wrapped in DashboardLayout */}
+            <Route path="/prp" element={<DashboardLayout />}>
+                <Route path="07-test" element={<TestChecklist />} />
+                <Route path="08-ship" element={<ShipPage />} />
             </Route>
         </Routes>
     )
