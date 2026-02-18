@@ -70,7 +70,7 @@ export default function ShipPage() {
 
                     <div className="flex justify-center gap-4 pt-8">
                         <button
-                            onClick={() => alert('Deployment sequence initiated... (Simulation)')}
+                            onClick={() => navigate('/prp/proof')}
                             className="flex items-center gap-3 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold text-lg rounded-xl shadow-lg shadow-green-200 transition-all transform hover:-translate-y-1 hover:shadow-2xl"
                         >
                             <Rocket className="w-6 h-6" />

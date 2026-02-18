@@ -9,6 +9,8 @@ import Profile from './pages/Profile'
 import Results from './pages/Results'
 import TestChecklist from './pages/TestChecklist'
 import ShipPage from './pages/ShipPage'
+import ProofPage from './pages/ProofPage'
+
 
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
             <Route path="/prp" element={<DashboardLayout />}>
                 <Route path="07-test" element={<TestChecklist />} />
                 <Route path="08-ship" element={<ShipPage />} />
+                <Route path="proof" element={<ProofPage />} />
             </Route>
         </Routes>
     )

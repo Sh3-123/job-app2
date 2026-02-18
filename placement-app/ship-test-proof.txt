@@ -1,0 +1,10 @@
+Placement Readiness Platform - Hidden Verification Routes
+
+1. System Verification Checklist
+http://localhost:5173/prp/07-test
+
+2. Ship Release Page (Locked until checklist complete)
+http://localhost:5173/prp/08-ship
+
+3. Final Proof & Submission Page
+http://localhost:5173/prp/proof
